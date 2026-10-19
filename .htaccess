@@ -1,0 +1,14 @@
+Options -Indexes
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
+# منع الوصول إلى الملفات الحساسة
+<FilesMatch "\.(sql|log|md|lock|bak|ini|env)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
